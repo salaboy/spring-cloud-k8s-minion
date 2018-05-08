@@ -58,7 +58,8 @@ public class Application implements CommandLineRunner {
                 String type = metadata.get("type");
                 if ("boss".equals(type)) {
                     String from = appName + "@" + InetAddress.getLocalHost().getHostName();
-                    String url = "http://" + si.getHost() + ":" + si.getPort();
+                   // String url = "http://" + si.getHost() + ":" + si.getPort();
+                    String url = "http://" + si.getServiceId();
                     log.info("--- Requesting a task to Boss: " + url + " -> from: " + from);
                     Boss boss = Feign.builder().target(Boss.class,
                                                        url);

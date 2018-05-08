@@ -5,7 +5,6 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
 
-import feign.Feign;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +13,35 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.cloud.openfeign.FeignClientsConfiguration;
-import org.springframework.context.annotation.Import;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableFeignClients
 @EnableDiscoveryClient
-@Import(FeignClientsConfiguration.class)
+@EnableCircuitBreaker
+@RibbonClient(name = "boss-service", configuration = RibbonConfiguration.class)
 public class Application implements CommandLineRunner {
 
     private static final Log log = LogFactory.getLog(Application.class);
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @Autowired
+    private BossClientService bossClient;
+
+    @LoadBalanced
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
     @Value("${spring.application.name}")
     private String appName;
@@ -57,13 +67,15 @@ public class Application implements CommandLineRunner {
                 Map<String, String> metadata = si.getMetadata();
                 String type = metadata.get("type");
                 if ("boss".equals(type)) {
+
                     String from = appName + "@" + InetAddress.getLocalHost().getHostName();
-                   // String url = "http://" + si.getHost() + ":" + si.getPort();
-                    String url = "http://" + si.getServiceId();
+                    // String url = "http://" + si.getHost() + ":" + si.getPort(); // hitting the endpoint directly
+                    String url = "http://" + si.getServiceId(); // reusing the dns resolution in kube
+
                     log.info("--- Requesting a task to Boss: " + url + " -> from: " + from);
-                    Boss boss = Feign.builder().target(Boss.class,
-                                                       url);
-                    boss.requestMission(from);
+                    bossClient.requestMission(url,
+                                              from);
+
                     missionRequested = true;
                 }
             }

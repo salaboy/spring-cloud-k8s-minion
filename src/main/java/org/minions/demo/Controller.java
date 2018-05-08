@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,10 @@ public class Controller {
     @Value("${spring.application.name}")
     private String appName;
 
+    @Autowired
+    private MinionConfig minionConfig;
+
+
     public Controller(MinionsLibrary minionsLibrary) {
         this.minionsLibrary = minionsLibrary;
     }
@@ -38,7 +43,7 @@ public class Controller {
         stringBuilder.append("Minion Type: ").append(appName).append("<br/>");
         stringBuilder.append("IP: ").append(InetAddress.getLocalHost().getHostAddress()).append("<br/>");
         stringBuilder.append("Version: ").append(version).append("<br/>");
-        stringBuilder.append(minionsLibrary.getMinion(appName));
+        stringBuilder.append(minionConfig.getArt());
         return stringBuilder.toString();
     }
 

@@ -19,6 +19,9 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
+        env:
+          - name: KUBERNETES_NAMESPACE
+            value: {{ .Release.Namespace }}
         livenessProbe:
           httpGet:
             path: {{ .Values.probePath }}

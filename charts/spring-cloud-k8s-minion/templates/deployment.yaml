@@ -24,7 +24,6 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-        serviceAccountName: {{ .Chart.Name }}        
         livenessProbe:
           httpGet:
             path: {{ .Values.probePath }}
@@ -43,3 +42,4 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      serviceAccountName: {{ .Chart.Name }}

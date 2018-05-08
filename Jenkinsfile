@@ -34,12 +34,12 @@ pipeline {
       }
       stage('Build Release') {
         when {
-          branch 'master'
+          branch 'develop'
         }
         steps {
           container('maven') {
             // ensure we're not on a detached head
-            sh "git checkout master"
+            sh "git checkout develop"
             sh "git config --global credential.helper store"
             sh "jx step validate --min-jx-version 1.1.73"
             sh "jx step git credentials"
@@ -61,7 +61,7 @@ pipeline {
       }
       stage('Promote to Environments') {
         when {
-          branch 'master'
+          branch 'develop'
         }
         steps {
           dir ('./charts/spring-cloud-k8s-minion') {
@@ -83,8 +83,8 @@ pipeline {
             cleanWs()
         }
         failure {
-            input """Pipeline failed. 
-We will keep the build pod around to help you diagnose any failures. 
+            input """Pipeline failed.
+We will keep the build pod around to help you diagnose any failures.
 
 Select Proceed or Abort to terminate the build pod"""
         }

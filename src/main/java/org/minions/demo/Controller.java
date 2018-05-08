@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
+@RefreshScope
 public class Controller {
 
     private static final Log log = LogFactory.getLog(Controller.class);
@@ -40,7 +42,7 @@ public class Controller {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Host: ").append(InetAddress.getLocalHost().getHostName()).append("<br/>");
-        stringBuilder.append("Minion Type: ").append(appName).append("<br/>");
+        stringBuilder.append("Minion Type: ").append(minionConfig.getType()).append("<br/>");
         stringBuilder.append("IP: ").append(InetAddress.getLocalHost().getHostAddress()).append("<br/>");
         stringBuilder.append("Version: ").append(version).append("<br/>");
         stringBuilder.append(minionConfig.getArt());

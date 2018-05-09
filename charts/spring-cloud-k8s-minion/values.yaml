@@ -27,7 +27,7 @@ livenessProbe:
   successThreshold: 1
   timeoutSeconds: 1
 readinessProbe:
-  periodSeconds: 30
+  periodSeconds: 60
   successThreshold: 1
   timeoutSeconds: 1
 terminationGracePeriodSeconds: 10

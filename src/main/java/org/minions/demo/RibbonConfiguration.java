@@ -38,9 +38,6 @@ import org.springframework.context.annotation.Configuration;
 public class RibbonConfiguration {
 
 
-	@Value("${spring.application.name}")
-	private String appName;
-
 	@Autowired
 	private IClientConfig config;
 
@@ -48,7 +45,7 @@ public class RibbonConfiguration {
 	public IClientConfig init(){
         DefaultClientConfigImpl defaultClientConfig = new DefaultClientConfigImpl();
         defaultClientConfig.loadDefaultValues();
-        defaultClientConfig.setClientName("jx-staging-"+appName);
+        defaultClientConfig.setClientName("jx-staging-spring-cloud-k8s-boss");
         return defaultClientConfig;
 	}
 

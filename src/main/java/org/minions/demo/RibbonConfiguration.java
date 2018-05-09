@@ -16,6 +16,9 @@
 
 package org.minions.demo;
 
+import javax.annotation.PostConstruct;
+
+import com.netflix.client.config.DefaultClientConfigImpl;
 import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.AvailabilityFilteringRule;
 import com.netflix.loadbalancer.IPing;
@@ -23,17 +26,25 @@ import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.PingUrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
 /**
  * Ribbon configuration.
- *
- * @author Obsidian Quickstarts
+
  */
 public class RibbonConfiguration {
 
-	@Autowired
-	IClientConfig ribbonClientConfig;
+
+	@Value("${spring.application.name}")
+	private String appName;
+
+	@Bean
+	public IClientConfig init(){
+		DefaultClientConfigImpl defaultClientConfig = new DefaultClientConfigImpl();
+		defaultClientConfig.setClientName(appName);
+		return defaultClientConfig;
+	}
 
 	/**
 	 *  PingUrl will ping a URL to check the status of each server.

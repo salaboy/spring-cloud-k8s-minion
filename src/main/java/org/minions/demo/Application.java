@@ -72,7 +72,7 @@ public class Application implements CommandLineRunner {
                     // String url = "http://" + si.getHost() + ":" + si.getPort(); // hitting the endpoint directly
                     String url = "http://" + si.getServiceId(); // reusing the dns resolution in kube
 
-                    log.info("--- Requesting a task to Boss: " + url + " -> from: " + from);
+
                     bossClient.requestMission(url,
                                               from);
 

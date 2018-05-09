@@ -2,6 +2,8 @@ package org.minions.demo;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -12,6 +14,8 @@ public class BossClientService {
 
     private final RestTemplate restTemplate;
 
+    private static final Log log = LogFactory.getLog(BossClientService.class);
+
     public BossClientService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -21,9 +25,13 @@ public class BossClientService {
     })
     public String requestMission(String to,
                                  String from) {
-        return this.restTemplate.getForObject(String.format("http://%s/mission/%s",
-                                                            to,
-                                                            from),
+
+        String url = String.format("http://%s/mission/%s",
+                                      to,
+                                      from);
+
+        log.info("--- Requesting a task to Boss: " + url);
+        return this.restTemplate.getForObject(url,
                                               String.class);
     }
 

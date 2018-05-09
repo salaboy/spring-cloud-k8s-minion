@@ -14,7 +14,6 @@ spec:
   - port: {{ .Values.service.externalPort }}
     targetPort: {{ .Values.service.internalPort }}
     protocol: TCP
-    #name: {{ .Values.service.name }}
-    name: http
+    name: {{ .Values.service.name }}
   selector:
     app: {{ template "fullname" . }}

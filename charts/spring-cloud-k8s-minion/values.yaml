@@ -16,7 +16,7 @@ service:
 resources:
   limits:
     cpu: 500m
-    memory: 512Mi
+    memory: 768Mi
   requests:
     cpu: 400m
     memory: 512Mi
@@ -27,7 +27,7 @@ livenessProbe:
   successThreshold: 1
   timeoutSeconds: 1
 readinessProbe:
-  periodSeconds: 60
+  periodSeconds: 70
   successThreshold: 1
   timeoutSeconds: 1
 terminationGracePeriodSeconds: 10

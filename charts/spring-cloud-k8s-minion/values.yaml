@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: draft
-  tag: dev
+  repository: 100.64.99.139:5000/salaboy/spring-cloud-k8s-minion
+  tag: 1.0.24
   pullPolicy: IfNotPresent
 service:
   name: spring-cloud-k8s-minion

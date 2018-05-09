@@ -10,6 +10,7 @@
 
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
     <logger name="org.hibernate.validator" level="info" /> <!-- Validator prints a lot of debug messages for Arquillian Cube  -->
+	<logger name="org.springframework.cloud.kubernetes" level="debug" />
 	<root level="info">
 		<appender-ref ref="STDOUT" />
 	</root>

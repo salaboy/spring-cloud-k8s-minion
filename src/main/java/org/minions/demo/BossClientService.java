@@ -26,7 +26,7 @@ public class BossClientService {
     public String requestMission(String to,
                                  String from) {
 
-        String url = String.format("http://%s/mission/%s",
+        String url = String.format("%s/mission/%s",
                                       to,
                                       from);
 

@@ -27,7 +27,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-@RibbonClient(name = "jx-staging-spring-cloud-k8s-boss", configuration = RibbonConfiguration.class)
+@RibbonClient( name = "jx-staging-spring-cloud-k8s-boss", configuration = RibbonConfiguration.class)
 public class Application implements CommandLineRunner {
 
     private static final Log log = LogFactory.getLog(Application.class);

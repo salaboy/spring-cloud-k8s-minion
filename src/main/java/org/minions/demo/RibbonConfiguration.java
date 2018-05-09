@@ -28,22 +28,28 @@ import com.netflix.loadbalancer.PingUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Ribbon configuration.
 
  */
+@Configuration
 public class RibbonConfiguration {
 
 
 	@Value("${spring.application.name}")
 	private String appName;
 
+	@Autowired
+	private IClientConfig config;
+
 	@Bean
 	public IClientConfig init(){
-		DefaultClientConfigImpl defaultClientConfig = new DefaultClientConfigImpl();
-		defaultClientConfig.setClientName(appName);
-		return defaultClientConfig;
+        DefaultClientConfigImpl defaultClientConfig = new DefaultClientConfigImpl();
+        defaultClientConfig.loadDefaultValues();
+        defaultClientConfig.setClientName("jx-staging-"+appName);
+        return defaultClientConfig;
 	}
 
 	/**

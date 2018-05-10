@@ -57,7 +57,7 @@ public class Application implements CommandLineRunner {
         log.info("Minion Started! ");
     }
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 5000)
     public void isThereGoldOutThere() throws UnknownHostException {
         List<String> services = this.discoveryClient.getServices();
         boolean missionRequested = false;

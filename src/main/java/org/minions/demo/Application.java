@@ -18,6 +18,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-@RibbonClient( name = "jx-staging-spring-cloud-k8s-boss", configuration = RibbonConfiguration.class)
+@RibbonClients( defaultConfiguration = RibbonConfiguration.class)
 public class Application implements CommandLineRunner {
 
     private static final Log log = LogFactory.getLog(Application.class);

@@ -37,17 +37,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RibbonConfiguration {
 
-
-	@Autowired
-	private IClientConfig config;
-
-	@Bean
-	public IClientConfig init(){
-        DefaultClientConfigImpl defaultClientConfig = new DefaultClientConfigImpl();
-        defaultClientConfig.loadDefaultValues();
-        defaultClientConfig.setClientName("jx-staging-spring-cloud-k8s-boss");
-        return defaultClientConfig;
-	}
+//
+//	@Autowired
+//	private IClientConfig config;
+//
+//	@Bean
+//	public IClientConfig init(){
+//        DefaultClientConfigImpl defaultClientConfig = new DefaultClientConfigImpl();
+//        defaultClientConfig.loadDefaultValues();
+//        defaultClientConfig.setClientName("jx-staging-spring-cloud-k8s-boss");
+//        return defaultClientConfig;
+//	}
 
 	/**
 	 *  PingUrl will ping a URL to check the status of each server.

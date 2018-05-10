@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RibbonConfiguration {
-    
+
 	@Autowired
 	private IClientConfig config;
 	/**

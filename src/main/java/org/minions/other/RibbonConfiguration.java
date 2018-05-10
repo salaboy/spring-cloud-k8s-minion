@@ -36,19 +36,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RibbonConfiguration {
-
-//
+    
 	@Autowired
 	private IClientConfig config;
-//
-//	@Bean
-//	public IClientConfig init(){
-//        DefaultClientConfigImpl defaultClientConfig = new DefaultClientConfigImpl();
-//        defaultClientConfig.loadDefaultValues();
-//        defaultClientConfig.setClientName("jx-staging-spring-cloud-k8s-boss");
-//        return defaultClientConfig;
-//	}
-
 	/**
 	 *  PingUrl will ping a URL to check the status of each server.
 	 *  Say Hello has, as you’ll recall, a method mapped to the /path; that means that Ribbon will get an HTTP 200 response when it pings a running Backend Server

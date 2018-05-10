@@ -1,5 +1,6 @@
 package org.minions.demo;
 
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -23,9 +24,6 @@ public class Controller {
 
     private MinionsLibrary minionsLibrary;
 
-    @Value("${spring.application.name}")
-    private String appName;
-
     @Autowired
     private MinionConfig minionConfig;
 
@@ -35,13 +33,13 @@ public class Controller {
 
     @RequestMapping(method = GET)
     @ResponseBody
-    public String minion() throws UnknownHostException {
+    public String minion() throws UnknownHostException, UnsupportedEncodingException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Host: ").append(InetAddress.getLocalHost().getHostName()).append("<br/>");
         stringBuilder.append("Minion Type: ").append(minionConfig.getType()).append("<br/>");
         stringBuilder.append("IP: ").append(InetAddress.getLocalHost().getHostAddress()).append("<br/>");
         stringBuilder.append("Version: ").append(version).append("<br/>");
-        String minion = minionsLibrary.getMinion(minionConfig.getType());
+        String minion = new String(minionsLibrary.getMinion(minionConfig.getType()).getBytes(), "UTF-8");
         if (minion != null && !minion.isEmpty()) {
             stringBuilder.append(minion);
         } else {

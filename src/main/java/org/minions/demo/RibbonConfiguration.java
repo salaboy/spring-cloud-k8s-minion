@@ -38,8 +38,8 @@ import org.springframework.context.annotation.Configuration;
 public class RibbonConfiguration {
 
 //
-//	@Autowired
-//	private IClientConfig config;
+	@Autowired
+	private IClientConfig config;
 //
 //	@Bean
 //	public IClientConfig init(){

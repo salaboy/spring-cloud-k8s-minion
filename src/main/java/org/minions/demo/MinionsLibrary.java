@@ -12,7 +12,7 @@ public class MinionsLibrary {
 
     //source of ascii art - http://textart4u.blogspot.co.uk/2013/08/minions-emoticons-text-art-for-facebook.html
     public MinionsLibrary(){
-        map.put("one-eyed-minion","<p style=\" size:13px; font-family:'lucida grande', tahoma, verdana, arial, sans-serif; line-height:18px; color:black\">"+
+        map.put("one-eyed-minion","<code><span style=\"display:block;line-height:8px; font-size: 8px; font-weight:bold;white-space:pre;font-family: monospace;color: black; background: white;\"> "+
                 "──────────▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄<br/>" +
                 "────────█═════════════════█<br/>" +
                 "──────█═════════════════════█<br/>" +
@@ -40,8 +40,8 @@ public class MinionsLibrary {
                 "─────────▐▓▓▓▓▓▓▌▐▓▓▓▓▓▓▌<br/>" +
                 "──────────▐▓▓▓▓▌──▐▓▓▓▓▌<br/>" +
                 "─────────▄████▀────▀████▄<br/>" +
-                "─────────▀▀▀▀────────▀▀▀▀</p>");
-        map.put("two-eyed-minion","<p style=\" size:13px; font-family:'lucida grande', tahoma, verdana, arial, sans-serif; line-height:18px; color:blue\">"+
+                "─────────▀▀▀▀────────▀▀▀▀</span></code>");
+        map.put("two-eyed-minion","<code><span style=\"display:block;line-height:8px; font-size: 8px; font-weight:bold;white-space:pre;font-family: monospace;color: black; background: white;\"> "+
                 "──────────▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄<br/>" +
                 "────────█═════════════════█<br/>" +
                 "──────█═════════════════════█<br/>" +
@@ -69,8 +69,8 @@ public class MinionsLibrary {
                 "─────────▐▓▓▓▓▓▓▌▐▓▓▓▓▓▓▌<br/>" +
                 "──────────▐▓▓▓▓▌──▐▓▓▓▓▌<br/>" +
                 "─────────▄████▀────▀████▄<br/>" +
-                "─────────▀▀▀▀────────▀▀▀▀</p>");
-        map.put("sad-minion","<p style=\" size:13px; font-family:'lucida grande', tahoma, verdana, arial, sans-serif; line-height:18px; color:darkblue\">"+
+                "─────────▀▀▀▀────────▀▀▀▀</span></code>");
+        map.put("sad-minion","<code><span style=\"display:block;line-height:8px; font-size: 8px; font-weight:bold;white-space:pre;font-family: monospace;color: black; background: white;\"> "+
                 "──────────▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄<br/>" +
                 "────────█═════════════════█<br/>" +
                 "──────█═════════════════════█<br/>" +
@@ -98,8 +98,8 @@ public class MinionsLibrary {
                 "─────────▐▓▓▓▓▓▓▌▐▓▓▓▓▓▓▌<br/>" +
                 "──────────▐▓▓▓▓▌──▐▓▓▓▓▌<br/>" +
                 "─────────▄████▀────▀████▄<br/>" +
-                "─────────▀▀▀▀────────▀▀▀▀</p>");
-        map.put("happy-minion","<p style=\" size:13px; font-family:'lucida grande', tahoma, verdana, arial, sans-serif; line-height:18px; color:darkorange\">"+
+                "─────────▀▀▀▀────────▀▀▀▀</span></code>");
+        map.put("happy-minion","<code><span style=\"display:block;line-height:8px; font-size: 8px; font-weight:bold;white-space:pre;font-family: monospace;color: black; background: white;\"> "+
                 "────────────▀▄───█───▄▀<br/>" +
                 "───────────▄▄▄█▄▄█▄▄█▄▄▄<br/>" +
                 "────────▄▀▀═════════════▀▀▄<br/>" +
@@ -131,7 +131,7 @@ public class MinionsLibrary {
                 "─────────▐▓▓▓▓▓▓▌▐▓▓▓▓▓▓▌<br/>" +
                 "──────────▐▓▓▓▓▌──▐▓▓▓▓▌<br/>" +
                 "─────────▄████▀────▀████▄<br/>" +
-                "─────────▀▀▀▀────────▀▀▀▀</p>");
+                "─────────▀▀▀▀────────▀▀▀▀</span></code>");
     }
 
     public String getMinion(String name){

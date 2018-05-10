@@ -45,7 +45,7 @@ public class RibbonConfiguration {
 	public IClientConfig init(){
         DefaultClientConfigImpl defaultClientConfig = new DefaultClientConfigImpl();
         defaultClientConfig.loadDefaultValues();
-//        defaultClientConfig.setClientName("jx-staging-spring-cloud-k8s-boss");
+        defaultClientConfig.setClientName("jx-staging-spring-cloud-k8s-boss");
         return defaultClientConfig;
 	}
 

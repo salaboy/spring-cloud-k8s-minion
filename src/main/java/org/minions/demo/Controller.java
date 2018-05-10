@@ -40,15 +40,12 @@ public class Controller {
     @RequestMapping(method = GET)
     @ResponseBody
     public String minion() throws UnknownHostException, UnsupportedEncodingException {
-
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Host: ").append(InetAddress.getLocalHost().getHostName()).append("<br/>");
         stringBuilder.append("Minion Type: ").append(minionConfig.getType()).append("<br/>");
         stringBuilder.append("IP: ").append(InetAddress.getLocalHost().getHostAddress()).append("<br/>");
         stringBuilder.append("Version: ").append(version).append("<br/>");
-        String art = new String(minionConfig.getArt().getBytes(),
-                              "UTF-8");
-        stringBuilder.append(art);
+        stringBuilder.append(minionsLibrary.getMinion(minionConfig.getType()));
         return stringBuilder.toString();
     }
 

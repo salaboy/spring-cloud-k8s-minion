@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spring.cloud.k8s.examples</groupId>
   <artifactId>minion</artifactId>
-  <version>1.0.40</version>
+  <version>1.0-SNAPSHOT</version>
 
   <packaging>jar</packaging>
 

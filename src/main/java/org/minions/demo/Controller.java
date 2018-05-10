@@ -1,6 +1,5 @@
 package org.minions.demo;
 
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -9,13 +8,11 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RefreshScope
@@ -32,21 +29,24 @@ public class Controller {
     @Autowired
     private MinionConfig minionConfig;
 
-
     public Controller(MinionsLibrary minionsLibrary) {
         this.minionsLibrary = minionsLibrary;
     }
 
     @RequestMapping(method = GET)
     @ResponseBody
-    public String minion() throws UnknownHostException, UnsupportedEncodingException {
+    public String minion() throws UnknownHostException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Host: ").append(InetAddress.getLocalHost().getHostName()).append("<br/>");
         stringBuilder.append("Minion Type: ").append(minionConfig.getType()).append("<br/>");
         stringBuilder.append("IP: ").append(InetAddress.getLocalHost().getHostAddress()).append("<br/>");
         stringBuilder.append("Version: ").append(version).append("<br/>");
-        stringBuilder.append(minionsLibrary.getMinion(minionConfig.getType()));
+        String minion = minionsLibrary.getMinion(minionConfig.getType());
+        if (minion != null && !minion.isEmpty()) {
+            stringBuilder.append(minion);
+        } else {
+            stringBuilder.append(" - No Art for this type (" + minionConfig.getType() + ") of minion - ");
+        }
         return stringBuilder.toString();
     }
-
 }

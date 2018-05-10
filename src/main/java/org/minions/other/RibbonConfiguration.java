@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-package org.minions.demo;
+package org.minions.other;
 
 import javax.annotation.PostConstruct;
 

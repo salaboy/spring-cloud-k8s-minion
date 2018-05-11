@@ -39,7 +39,7 @@ public class Controller {
         stringBuilder.append("Minion Type: ").append(minionConfig.getType()).append("<br/>");
         stringBuilder.append("IP: ").append(InetAddress.getLocalHost().getHostAddress()).append("<br/>");
         stringBuilder.append("Version: ").append(version).append("<br/>");
-        String minion = new String(minionsLibrary.getMinion(minionConfig.getType()).getBytes(), "UTF-8");
+        String minion = minionsLibrary.getMinion(minionConfig.getType());
         if (minion != null && !minion.isEmpty()) {
             stringBuilder.append(minion);
         } else {

@@ -32,6 +32,7 @@ import org.springframework.web.client.RestTemplate;
 public class Application implements CommandLineRunner {
 
     private static final Log log = LogFactory.getLog(Application.class);
+
     @Autowired
     private DiscoveryClient discoveryClient;
 

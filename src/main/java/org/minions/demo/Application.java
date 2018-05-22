@@ -75,6 +75,15 @@ public class Application implements CommandLineRunner {
         log.info(">>> Working on " + taskAtHand);
     }
 
+    @Scheduled(fixedRate = 60000)
+    public void finishWork() throws UnknownHostException {
+        if (!taskAtHand.equals(FIND_A_BOSS_TASK)) {
+            log.info(">>> Finishing " + taskAtHand);
+            taskAtHand = FIND_A_BOSS_TASK;
+        }
+    }
+
+
     private String findANewBoss() throws UnknownHostException {
         List<String> services = this.discoveryClient.getServices();
         for (String s : services) {

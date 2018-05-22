@@ -28,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-@RibbonClients( defaultConfiguration = RibbonConfiguration.class)
+@RibbonClients(defaultConfiguration = RibbonConfiguration.class)
 public class Application implements CommandLineRunner {
 
     private static final Log log = LogFactory.getLog(Application.class);
@@ -38,6 +38,12 @@ public class Application implements CommandLineRunner {
 
     @Autowired
     private BossClientService bossClient;
+
+    @Autowired
+    private MinionConfig minionConfig;
+
+    private final String FIND_A_BOSS_TASK = "find a new boss";
+    private String taskAtHand = FIND_A_BOSS_TASK;
 
     @LoadBalanced
     @Bean
@@ -55,14 +61,22 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        log.info("Minion Started! ");
+        log.info("Minion (" + appName + ":" + minionConfig.getType() + ")Started! ");
     }
 
-    @Scheduled(fixedRate = 5000)
-    public void isThereGoldOutThere() throws UnknownHostException {
+    @Scheduled(fixedRate = 10000)
+    public void doSomeWork() throws UnknownHostException {
+        if (taskAtHand.equals(FIND_A_BOSS_TASK)) {
+            taskAtHand = findANewBoss();
+            if (taskAtHand.equals(FIND_A_BOSS_TASK)) {
+                log.info(">>> NO BOSS FOUND, I will keep looking for one ");
+            }
+        }
+        log.info(">>> Working on " + taskAtHand);
+    }
+
+    private String findANewBoss() throws UnknownHostException {
         List<String> services = this.discoveryClient.getServices();
-        boolean missionRequested = false;
         for (String s : services) {
             List<ServiceInstance> instances = this.discoveryClient.getInstances(s);
             for (ServiceInstance si : instances) {
@@ -74,16 +88,11 @@ public class Application implements CommandLineRunner {
                     // String url = "http://" + si.getHost() + ":" + si.getPort(); // hitting the endpoint directly
                     String url = "http://" + si.getServiceId(); // reusing the dns resolution in kube
 
-
-                    bossClient.requestMission(url,
-                                              from);
-
-                    missionRequested = true;
+                    return bossClient.requestMission(url,
+                                                     from);
                 }
             }
         }
-        if (!missionRequested) {
-            log.info("--- NO BOSS FOUND! :( ");
-        }
+        return FIND_A_BOSS_TASK;
     }
 }

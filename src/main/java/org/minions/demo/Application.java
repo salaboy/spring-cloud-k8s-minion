@@ -24,6 +24,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
 
+import static org.minions.demo.BossClientService.FIND_A_BOSS_TASK;
+
 @SpringBootApplication
 @EnableScheduling
 @EnableDiscoveryClient
@@ -42,7 +44,7 @@ public class Application implements CommandLineRunner {
     @Autowired
     private MinionConfig minionConfig;
 
-    private final String FIND_A_BOSS_TASK = "find a new boss";
+
     private String taskAtHand = FIND_A_BOSS_TASK;
 
     @LoadBalanced

@@ -16,6 +16,8 @@ public class BossClientService {
 
     private static final Log log = LogFactory.getLog(BossClientService.class);
 
+    public static final String FIND_A_BOSS_TASK = "find a new boss";
+
     public BossClientService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -38,8 +40,9 @@ public class BossClientService {
         return responseEntity.getBody();
     }
 
-    private void getFallbackName(String to,
-                                 String from) {
+    private String getFallbackName(String to,
+                                   String from) {
         log.error("--- This Boss  (" + to + ") not available now, please come back later (Fallback) client:" + from);
+        return FIND_A_BOSS_TASK;
     }
 }

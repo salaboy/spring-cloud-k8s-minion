@@ -66,6 +66,9 @@ public class Application implements CommandLineRunner {
         log.info("Minion (" + appName + ":" + minionConfig.getType() + ")Started! ");
     }
 
+    /*
+     * Every 10 seconds look for a boss or keep working on the task at hand
+     */
     @Scheduled(fixedRate = 10000)
     public void doSomeWork() throws UnknownHostException {
         if (taskAtHand.equals(FIND_A_BOSS_TASK)) {
@@ -77,6 +80,9 @@ public class Application implements CommandLineRunner {
         log.info(">>> Working on " + taskAtHand);
     }
 
+    /*
+     * Every 60 seconds if you are not looking for a Boss, wrap up the task at hand
+     */
     @Scheduled(fixedRate = 60000)
     public void finishWork() throws UnknownHostException {
         if (!taskAtHand.equals(FIND_A_BOSS_TASK)) {
@@ -86,6 +92,9 @@ public class Application implements CommandLineRunner {
     }
 
 
+    /*
+     * Find a new boss by filtering the available services based on Metadata
+     */
     private String findANewBoss() throws UnknownHostException {
         List<String> services = this.discoveryClient.getServices();
         for (String s : services) {

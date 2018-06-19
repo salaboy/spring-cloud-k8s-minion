@@ -1,7 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
+{{- if .Values.service.name }}
   name: {{ .Values.service.name }}
+{{- else }}
+  name: {{ template "fullname" . }}
+{{- end }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 {{- if .Values.service.annotations }}
@@ -14,6 +18,6 @@ spec:
   - port: {{ .Values.service.externalPort }}
     targetPort: {{ .Values.service.internalPort }}
     protocol: TCP
-    name: {{ .Values.service.name }}
+    name: http
   selector:
-    app: {{ .Values.service.name }}
+    app: {{ template "fullname" . }}

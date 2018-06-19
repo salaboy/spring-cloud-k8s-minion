@@ -22,6 +22,9 @@ pipeline {
             sh "mvn versions:set -DnewVersion=$PREVIEW_VERSION"
             sh "mvn install"
             sh 'export VERSION=$PREVIEW_VERSION && skaffold run -f skaffold.yaml'
+
+
+            sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
           }
 
           dir ('./charts/preview') {
@@ -34,14 +37,14 @@ pipeline {
       }
       stage('Build Release') {
         when {
-          branch 'develop'
+          branch 'master'
         }
         steps {
           container('maven') {
             // ensure we're not on a detached head
-            sh "git checkout develop"
+            sh "git checkout master"
             sh "git config --global credential.helper store"
-            sh "jx step validate --min-jx-version 1.1.73"
+
             sh "jx step git credentials"
             // so we can retrieve the version in later steps
             sh "echo \$(jx-release-version) > VERSION"
@@ -56,12 +59,15 @@ pipeline {
             sh 'mvn clean deploy'
 
             sh 'export VERSION=`cat VERSION` && skaffold run -f skaffold.yaml'
+
+
+            sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
           }
         }
       }
       stage('Promote to Environments') {
         when {
-          branch 'develop'
+          branch 'master'
         }
         steps {
           dir ('./charts/spring-cloud-k8s-minion') {
@@ -69,7 +75,7 @@ pipeline {
               sh 'jx step changelog --version v\$(cat ../../VERSION)'
 
               // release the helm chart
-              sh 'make release'
+              sh 'jx step helm release'
 
               // promote through all 'Auto' promotion Environments
               sh 'jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION)'
@@ -83,8 +89,8 @@ pipeline {
             cleanWs()
         }
         failure {
-            input """Pipeline failed.
-We will keep the build pod around to help you diagnose any failures.
+            input """Pipeline failed. 
+We will keep the build pod around to help you diagnose any failures. 
 
 Select Proceed or Abort to terminate the build pod"""
         }

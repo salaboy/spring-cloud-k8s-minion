@@ -105,9 +105,7 @@ public class Application implements CommandLineRunner {
                 if ("boss".equals(type)) {
 
                     String from = appName + "@" + InetAddress.getLocalHost().getHostName();
-                    // String url = "http://" + si.getHost() + ":" + si.getPort(); // hitting the endpoint directly
-                    String url = "http://" + si.getServiceId(); // reusing the dns resolution in kube
-
+                    String url = "http://" + si.getServiceId();
                     return bossClient.requestMission(url,
                                                      from);
                 }

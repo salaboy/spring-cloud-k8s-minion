@@ -15,6 +15,7 @@
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
     <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
     <spring.cloud.k8s.version>0.3.0.RC1</spring.cloud.k8s.version>
     <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
@@ -22,6 +23,13 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>

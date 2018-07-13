@@ -1,7 +1,7 @@
 apiVersion: v1
- kind: ConfigMap
- metadata:
-   name: {{ .Values.service.name }}
- data:
-   application.properties: |-
-     minion.type=one-eyed-minion
+kind: ConfigMap
+metadata:
+ name: {{ .Values.service.name }}
+data:
+ application.properties: |-
+   minion.type=one-eyed-minion

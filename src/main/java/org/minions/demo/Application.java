@@ -1,13 +1,7 @@
 package org.minions.demo;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.minions.other.RibbonConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -18,11 +12,15 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Map;
 
 import static org.minions.demo.BossClientService.FIND_A_BOSS_TASK;
 
@@ -30,7 +28,7 @@ import static org.minions.demo.BossClientService.FIND_A_BOSS_TASK;
 @EnableScheduling
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-@RibbonClients(defaultConfiguration = RibbonConfiguration.class)
+// @RibbonClients(defaultConfiguration = RibbonConfiguration.class)
 public class Application implements CommandLineRunner {
 
     private static final Log log = LogFactory.getLog(Application.class);

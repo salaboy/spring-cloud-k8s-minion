@@ -11,7 +11,6 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,7 +27,6 @@ import static org.minions.demo.BossClientService.FIND_A_BOSS_TASK;
 @EnableScheduling
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-// @RibbonClients(defaultConfiguration = RibbonConfiguration.class)
 public class Application implements CommandLineRunner {
 
     private static final Log log = LogFactory.getLog(Application.class);
@@ -42,7 +40,6 @@ public class Application implements CommandLineRunner {
     @Autowired
     private MinionConfig minionConfig;
 
-
     private String taskAtHand = FIND_A_BOSS_TASK;
 
     @Bean
@@ -54,8 +51,7 @@ public class Application implements CommandLineRunner {
     private String appName;
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class,
-                              args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Override

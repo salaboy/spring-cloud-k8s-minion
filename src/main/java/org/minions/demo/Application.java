@@ -45,7 +45,6 @@ public class Application implements CommandLineRunner {
 
     private String taskAtHand = FIND_A_BOSS_TASK;
 
-    @LoadBalanced
     @Bean
     RestTemplate restTemplate() {
         return new RestTemplate();
@@ -60,7 +59,7 @@ public class Application implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.info("Minion (" + appName + ":" + minionConfig.getType() + ")Started! ");
     }
 
@@ -82,7 +81,7 @@ public class Application implements CommandLineRunner {
      * Every 60 seconds if you are not looking for a Boss, wrap up the task at hand
      */
     @Scheduled(fixedRate = 60000)
-    public void finishWork() throws UnknownHostException {
+    public void finishWork() {
         if (!taskAtHand.equals(FIND_A_BOSS_TASK)) {
             log.info(">>> Finishing " + taskAtHand);
             taskAtHand = FIND_A_BOSS_TASK;
@@ -95,17 +94,17 @@ public class Application implements CommandLineRunner {
      */
     private String findANewBoss() throws UnknownHostException {
         List<String> services = this.discoveryClient.getServices();
-        for (String s : services) {
-            List<ServiceInstance> instances = this.discoveryClient.getInstances(s);
-            for (ServiceInstance si : instances) {
-                Map<String, String> metadata = si.getMetadata();
+
+        for (String service : services) {
+            List<ServiceInstance> instances = this.discoveryClient.getInstances(service);
+            for (ServiceInstance se : instances) {
+                Map<String, String> metadata = se.getMetadata();
                 String type = metadata.get("type");
                 if ("boss".equals(type)) {
 
                     String from = appName + "@" + InetAddress.getLocalHost().getHostName();
-                    String url = "http://" + si.getServiceId();
-                    return bossClient.requestMission(url,
-                                                     from);
+                    String url = "http://" + se.getServiceId();
+                    return bossClient.requestMission(url, from);
                 }
             }
         }

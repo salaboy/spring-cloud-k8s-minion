@@ -32,7 +32,6 @@ public class Controller {
     }
 
     @RequestMapping(method = GET)
-    @ResponseBody()
     public String minion() throws UnknownHostException, UnsupportedEncodingException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Host: ").append(InetAddress.getLocalHost().getHostName()).append("<br/>");

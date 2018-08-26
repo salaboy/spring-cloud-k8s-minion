@@ -33,11 +33,8 @@ public class BossClientService {
                                    from);
 
         log.info("--- Requesting a task to Boss: " + url);
-        ResponseEntity<String> responseEntity = this.restTemplate.exchange(url,
-                                                                           HttpMethod.POST,
-                                                                           null,
-                                                                           String.class);
-        return responseEntity.getBody();
+
+        return restTemplate.getForObject(url, String.class);
     }
 
     private String getFallbackName(String to,
